@@ -1,0 +1,64 @@
+# -----------------------------------------------------------------------------
+# Agent Configuration
+# -----------------------------------------------------------------------------
+# Environment variables override these defaults.
+# Values here document the expected configuration.
+# -----------------------------------------------------------------------------
+
+# Model Configuration
+model:
+  # Bedrock model identifier
+  model_id: "anthropic.claude-sonnet-4-20250514-v1:0"
+  
+  # Model parameters
+  temperature: 0.7
+  max_tokens: 2048
+
+# Agent Behaviour
+agent:
+  # System prompt template (supports {tenant_id} and {environment} placeholders)
+  system_prompt: |
+    You are a helpful assistant for {tenant_id}.
+    
+    Your role is to:
+    1. Answer questions clearly and accurately
+    2. Help users accomplish their tasks efficiently
+    3. Use available tools when they would help answer the question
+    4. Remember important context from the conversation
+    
+    Always be polite, professional, and helpful.
+    
+    Current environment: {environment}
+
+# Memory Configuration (AgentCore Memory)
+memory:
+  # Enable AgentCore Memory integration
+  enabled: true
+  
+  # Memory strategies to use
+  strategies:
+    - session_summary    # Summarise conversations
+    - user_preference    # Track user preferences
+    - semantic_facts     # Extract and store facts
+
+# Observability
+observability:
+  # Log level (DEBUG, INFO, WARNING, ERROR)
+  log_level: INFO
+  
+  # Enable OpenTelemetry tracing
+  otel_enabled: true
+  
+  # Metrics collection
+  metrics_enabled: true
+
+# Tools Configuration
+tools:
+  # Enable built-in tools
+  builtin:
+    - get_tenant_info
+    - store_user_preference
+    - get_current_time
+  
+  # Enable community tools (from strands-agents-tools)
+  community: []
